@@ -4,7 +4,8 @@
   "description": "Tutorial follow-along from https://www.youtube.com/watch?list=PLX2HoWE32I8OCnumQmc9lcjnHIjAamIy6&amp;v=4WJLlWpzpP0",
   "main": "scripts.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",

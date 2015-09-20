@@ -70,7 +70,7 @@ var BlogView = Backbone.View.extend({
       success: function (response) {
         console.log('Successfully UPDATED blog with _id: ' + response.toJSON()._id);
       },
-      error: function (response) {
+      error: function (err) {
         console.log('Failed to update blog!');
       }
     });
@@ -83,7 +83,7 @@ var BlogView = Backbone.View.extend({
       success: function (response) {
         console.log('Successfully DELETED blog with _id: ' + response.toJSON._id);
       },
-      error: function () {
+      error: function (err) {
         console.log('Failed to DELETE blog!');
       }
     });
