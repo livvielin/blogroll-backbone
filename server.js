@@ -17,14 +17,14 @@ mongoose.model('Blog', BlogSchema);
 var Blog = mongoose.model('Blog');
 
 // instantiate blog to test
-var blog = new Blog({
-  author: 'Michael',
-  title: 'Michael\'s Blog',
-  url: 'http://michaelsblog.com'
-});
+// var blog = new Blog({
+//   author: 'Michael',
+//   title: 'Michael\'s Blog',
+//   url: 'http://michaelsblog.com'
+// });
 
 // save blog to database
-blog.save();
+// blog.save();
 
 
 var app = express();
@@ -49,9 +49,23 @@ app.post('/api/blogs', function (req, res) {
   for (var key in req.body) {
     console.log(key + ': ' + req.body[key]);
   }
-  var Blog = new Blog(req.body); // this needs body-parser
+  var blog = new Blog(req.body); // this needs body-parser
   blog.save(function (err, doc) {
     res.send(doc);
+  });
+});
+
+app.delete('/api/blog/:id', function (req, res) {
+  console.log('Received a DELETE request for _id: ' + req.params.id);
+  Blog.remove({ _id: req.params.id }, function (err) {
+    res.send({ _id: req.params.id });
+  });
+});
+
+app.put('/api/blog/:id', function (req, res) {
+  console.log('Received an UPDATE request for _id: ' + req.params.id);
+  Blog.update({ _id: req.params.id }, req.body, function (err) {
+    res.send({ _id: req.params.id });
   });
 });
 
