@@ -1,4 +1,5 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost/blogroll');
@@ -25,9 +26,34 @@ var blog = new Blog({
 // save blog to database
 blog.save();
 
+
 var app = express();
 
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.json());
+
+//ROUTES
+
+// create route for url GET request
+app.get('/api/blogs', function (req, res) {
+  Blog.find(function (err, docs) {
+    docs.forEach(function (item) {
+      console.log('Received a GET request for _id: ' + item._id);
+    });
+    res.send(docs);
+  });
+});
+
+app.post('/api/blogs', function (req, res) {
+  console.log('Received a POST request');
+  for (var key in req.body) {
+    console.log(key + ': ' + req.body[key]);
+  }
+  var Blog = new Blog(req.body); // this needs body-parser
+  blog.save(function (err, doc) {
+    res.send(doc);
+  });
+});
 
 var port = 3000;
 
